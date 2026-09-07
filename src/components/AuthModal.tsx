@@ -195,17 +195,13 @@ export function AuthModal({
           </button>
         </form>
 
-        {mode === "user" ? (
+        {mode === "user" && (
           <button
             onClick={toggleRegister}
             className="mt-4 w-full text-center text-sm font-semibold text-accent"
           >
             {register ? "Já tenho uma conta" : "Ainda não tenho uma conta"}
           </button>
-        ) : (
-          <p className="mt-4 text-center text-xs text-ink-soft">
-            O cadastro de artista não é feito por esta tela.
-          </p>
         )}
       </div>
     </div>
