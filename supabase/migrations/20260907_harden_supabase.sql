@@ -547,7 +547,7 @@ as $$
 $$;
 revoke all on function public.refresh_category_artist_count(text) from public, anon, authenticated;
 
-create or replace function public.refresh_category_counts_from_artist(p_artist_id text)
+create or replace function public.refresh_category_counts_from_artist()
 returns trigger
 language plpgsql
 as $$
@@ -585,7 +585,7 @@ begin
   return coalesce(new, old);
 end;
 $$;
-revoke all on function public.refresh_category_counts_from_artist(text) from public, anon, authenticated;
+revoke all on function public.refresh_category_counts_from_artist() from public, anon, authenticated;
 
 create or replace function public.refresh_category_count_from_link()
 returns trigger
@@ -611,7 +611,7 @@ for each row execute function public.refresh_category_count_from_link();
 drop trigger if exists artists_refresh_category_counts on public.artists;
 create trigger artists_refresh_category_counts
 after insert or update of is_published or delete on public.artists
-for each row execute function public.refresh_category_counts_from_artist(id);
+for each row execute function public.refresh_category_counts_from_artist();
 
 -- The legacy favorites table remains only as historical data. It has no Data API
 -- grants now, eliminating the previous cross-visitor read/write surface.
