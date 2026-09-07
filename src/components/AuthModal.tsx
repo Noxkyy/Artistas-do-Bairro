@@ -63,10 +63,14 @@ export function AuthModal({
       onSuccess();
     } catch (err) {
       const raw = err instanceof Error ? err.message : "";
+      const normalized = raw.toLowerCase();
 
-      if (raw === "over_email_send_rate_limit") {
+      if (
+        normalized.includes("email") &&
+        (normalized.includes("rate limit") || normalized.includes("too many emails"))
+      ) {
         setError(
-          "O cadastro por e-mail atingiu o limite temporário de envio. Tente novamente mais tarde."
+          "O serviço de e-mail atingiu o limite temporário de cadastros. Aguarde um pouco e tente novamente."
         );
       } else {
         setError(raw || "Não foi possível concluir o acesso.");
