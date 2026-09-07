@@ -37,6 +37,19 @@ const SPANS: Record<string, string> = {
   motion: "sm:col-span-3 lg:col-span-3",
 };
 
+const CURATION_EMAIL = "joao.czadotz@escola.pr.gov.br";
+const CURATION_SUBJECT = "Pedido de Curadoria: Solicitação de Nova Área";
+const CURATION_BODY = `Olá, equipe de curadoria!
+
+Não encontrei a área de atuação que procurava no site e gostaria de solicitar uma categoria sob demanda.
+
+Estou precisando de um profissional especializado em: [Apague este texto e descreva aqui detalhadamente a área ou o profissional que você busca]
+
+Fico no aguardo do retorno!
+
+Atenciosamente,`;
+const CURATION_MAILTO = `mailto:${CURATION_EMAIL}?subject=${encodeURIComponent(CURATION_SUBJECT)}&body=${encodeURIComponent(CURATION_BODY)}`;
+
 export function Categories({ active, onSelect }: Props) {
   const pick = (id: CategoryId) => {
     onSelect(id);
@@ -84,9 +97,9 @@ export function Categories({ active, onSelect }: Props) {
 
           {/* Célula CTA */}
           <Reveal delay={CATEGORIES.length * 80} className="sm:col-span-3 lg:col-span-3">
-            <button
-              type="button"
-              onClick={() => scrollToId("#seja-artista")}
+            <a
+              href={CURATION_MAILTO}
+              aria-label="Pedir curadoria por e-mail"
               className="group relative flex h-full min-h-[150px] w-full flex-col justify-between overflow-hidden rounded-3xl border border-dashed border-accent/45 bg-accent-soft p-6 text-left transition-all duration-500 hover:-translate-y-1.5 hover:border-accent"
             >
               <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-accent/15 blur-2xl transition-transform duration-700 group-hover:scale-150" />
@@ -106,7 +119,7 @@ export function Categories({ active, onSelect }: Props) {
                   <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
                 </span>
               </div>
-            </button>
+            </a>
           </Reveal>
         </div>
       </div>
